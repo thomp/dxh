@@ -17,10 +17,6 @@
   "Symbol representing function which should be called to generate default content in HEAD component."
   )
 
-(defvar *default-xh-top*
-  'default-xh-top-content
-  "Symbol representing function which should be called to generate default content at the top of any xhtml page.")
-
 ;; test:
 ;; (let ((dxh:*xhtml-namespace* nil)) (dxh:html-xhc "joejoe"))
 (defparameter *xhtml-namespace*
