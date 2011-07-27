@@ -12,7 +12,10 @@
 (defparameter *xfnamespace* "xf"
   "String representing the xforms namespace. Default value is 'xf'.")
 
-(defvar *default-head-content* 'default-head-content-xhc)
+(defvar *default-head-content* 
+  nil ; 'default-head-content-xhc
+  "Symbol representing function which should be called to generate default content in HEAD component."
+  )
 
 (defvar *default-xh-top*
   'default-xh-top-content
