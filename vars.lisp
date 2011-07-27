@@ -3,26 +3,6 @@
 ;;;
 ;;; vars.lisp: variable definitions for DXH
 ;;;
-(defparameter *styles*
-  ;; HTML
-  '((:link ("http://127.0.0.1:3000/xfsql/css/default-style.css" "text/css")))
-  ;; FIREFOX
-  ;;nil
-  ;; UBIQUITY
-  ;;(link-xhc :href "http://127.0.0.1/backplanejs-0-6-5-yui-2.8.0/assets/backplane.css" :rel "stylesheet")
-  ;;'((:link ("http://127.0.0.1:3000/backplanejs/assets/backplane.css" "text/css")))
-  ;; XSLTFORMS
-  ;;'((:xml ("http://127.0.0.1:3000/xslt/xsltforms/xsltforms.xsl" "application/xml")) (:link ("http://127.0.0.1:3000/xfsql/css/default-style.css" "text/css")) )
- "Default styles which should be applied to a web page. A list with members each with the format (style-type style-details). If style-type is :LINK style-details should be a list specifying the href and MIME type attributes of <link>...</link>. If style-type is :STYLE, style-details should be a string corresponding to <style>...</style>. If style-type is :XML, style-details should be a list in the format described for a member of DAT-XML::*DEFAULT-STYLESHEET-URLS* "
-  )
-
-;; deprecated (see above)
-(defvar *default-stylesheet-url* nil
-  "NIL or a string representing the default URL for a CSS stylesheet.")
-
-(defvar *embed-css?* t
-  "DEPRECATED. If true, instead of using <link ...> or <?xml-stylesheet ... > to point at a CSS file, embed the style information at *DEFAULT-STYLESHEET-URL* in the document itself. note(s): only URLs of the form file:///path/to/foo.css are currently supported"
-  )
 
 ;; T: use <link ...>; NIL: use <?xml-stylesheet ...>"
 (defvar *link-css-style?* nil
