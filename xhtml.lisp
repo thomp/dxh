@@ -75,8 +75,11 @@
 
 (defun default-head-content (&optional stream)
   "Return a string by calling the function pointed to by *default-head-content*. Send string to STREAM."
-  (write-string (or (funcall *default-head-content*) "") 
-		stream))
+  (write-string 
+   (if *default-head-content*
+       (funcall *default-head-content*)
+       "") 
+   stream))
 
 (defun div-xhc (some-string &key class id style stream)
   "Return as a string a <div>...</div> component of a xhtml document where SOME-STRING is included verbatim."
