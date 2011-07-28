@@ -1,4 +1,3 @@
-;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: DXH; Base: 10 -*-
 (in-package :dxh)
 ;;;
 ;;; xhtml.lisp: code for generating generic xhtml
@@ -346,16 +345,12 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
 	;;      ;; FIXME: should be able to pass verbatim attributes here
 	;;      (dxg:empty-tag tag 
 	;; 			 :namespace *xhtml-namespace* 
-	;; 			 :attributes-string attributes-string)))
-	
+	;; 			 :attributes-string attributes-string))) 
 	)
     (dxg:xmlc tag some-string
 	      :attr attributes
 	      :namespace *xhtml-namespace*
-	      :stream stream
-	      )
-    ;;(if stream (write-string return-string stream) return-string)
-    ))
+	      :stream stream)))
 
 (defun xhc-protected (label &key (protected-string "") attributes)
   "Return <label> XHTML component of an xforms/xhtml document. ATTRIBUTES is a list of lists. Each sublist has two members, the first is a string corresponding to the attribute and the second is a string corresponding to the attribute value. PROTECTED-STRING is a string which is included verbatim as a child of the <label>...</label> node."
