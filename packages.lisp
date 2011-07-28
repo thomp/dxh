@@ -1,10 +1,8 @@
-;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: CL-USER; Base: 10 -*-
 (in-package :cl-user)
 
 (defpackage :dxh
   (:use :cl)
   (:export
-   *default-xh-top*
    *styles*
    *xhtml-namespace*
    a-xhc
@@ -12,8 +10,6 @@
    body-xhc
    br-xhc
    button-xhc
-   default-xh-top
-   default-xh-top-content
    div-xhc
    form-xhc
    h1-xhc
