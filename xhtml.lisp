@@ -287,7 +287,7 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
 (defun textarea-xhc (some-string &key class id onblur onfocus readonly style stream type name value)
   "Return a string."
   (xhc "textarea" some-string
-       :attributes (list 
+       :attributes (list
 		    (list "readonly" readonly)
 		    (list "type" type)
 		    (list "name" name)

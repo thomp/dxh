@@ -1,12 +1,7 @@
-;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: DXH; Base: 10 -*-
 (in-package :dxh)
 ;;;
 ;;; vars.lisp: variable definitions for DXH
 ;;;
-
-;; T: use <link ...>; NIL: use <?xml-stylesheet ...>"
-(defvar *link-css-style?* nil
-  "If true, include a <link ...> phrase in <head>...</head>.")
 
 ;; FIXME: ** what is this doing here? **
 (defparameter *xfnamespace* "xf"
