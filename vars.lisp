@@ -2,11 +2,6 @@
 ;;;
 ;;; vars.lisp: variable definitions for DXH
 ;;;
-
-;; FIXME: ** what is this doing here? **
-(defparameter *xfnamespace* "xf"
-  "String representing the xforms namespace. Default value is 'xf'.")
-
 (defvar *default-head-content* 
   nil ; 'default-head-content-xhc
   "Symbol representing function which should be called to generate default content in HEAD component."
