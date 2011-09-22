@@ -44,12 +44,14 @@
 (defun br-xhc (&key id stream)
   (xhc "br" nil :id id :stream stream))
 
-(defun button-xhc (some-string &key class disabled id onblur onclick onfocus style stream type name value)
+(defun button-xhc (some-string &key accesskey class disabled id onblur onclick onfocus style stream tabindex type name value)
   "Return a string."
   (xhc "button" some-string
        :attributes (list 
+		    (list "accesskey" accesskey)
 		    (list "disabled" disabled)
-		    (list "name" name)
+		    (list "name" name) 
+		    (list "tabindex" tabindex)
 		    (list "type" type)
 		    (list "value" value) 
 		    (list "onclick" onclick)
@@ -173,13 +175,16 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
        :style style
        :stream stream))
 
-(defun input-xhc (&key class id onblur onfocus readonly style stream type name value)
+(defun input-xhc (&key accesskey checked class id onblur onfocus readonly style stream type name tabindex value)
   "Return a string."
   (xhc "input" ""
        :attributes (list 
+		    (list "accesskey" accesskey)
+		    (list "checked" checked)
 		    (list "readonly" readonly)
 		    (list "type" type)
 		    (list "name" name)
+		    (list "tabindex" tabindex)
 		    (list "value" value)
 		    (list "onfocus" onfocus)
 		    (list "onblur" onblur))
@@ -232,13 +237,16 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
 				   (list "src" src)
 				   (list "type" type))))
 
-(defun select-xhc (some-string &key class id multiple name onchange style stream)
+(defun select-xhc (some-string &key accesskey class id multiple name onchange style stream tabindex)
   "Return as a string a select component of a xhtml document where SOME-STRING is included verbatim."
   (xhc "select" some-string 
         :attributes (list 
+		     (list "accesskey" accesskey)
 		     (list "multiple" multiple)
 		     (list "name" name)
-		     (list "onchange" onchange))
+		     (list "onchange" onchange)
+		     (list "tabindex" tabindex)
+		     )
        :class class :id id :style style :stream stream))
 
 (defun style-xhc (some-string &key protect-with-cdata-p stream (type "text/css"))
@@ -284,13 +292,15 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
   "Return a string."
   (xhc "td" some-string :stream stream))
 
-(defun textarea-xhc (some-string &key class id onblur onfocus readonly style stream type name value)
+(defun textarea-xhc (some-string &key accesskey class id onblur onfocus readonly style stream tabindex type name value)
   "Return a string."
   (xhc "textarea" some-string
        :attributes (list
+		    (list "accesskey" accesskey)
 		    (list "readonly" readonly)
 		    (list "type" type)
 		    (list "name" name)
+		    (list "tabindex" tabindex)
 		    (list "value" value)
 		    (list "onfocus" onfocus)
 		    (list "onblur" onblur))

@@ -9,7 +9,7 @@
 
 ;; test:
 ;; (let ((dxh:*xhtml-namespace* nil)) (dxh:html-xhc "joejoe"))
-(defparameter *xhtml-namespace*
+(defvar *xhtml-namespace*
   "" ; "h"
   "Either NIL or a string representing the namespace for xhtml content. For example, 'h' would indicate that <p> should be rendered in an xhtml document as <h:p>.")
 
