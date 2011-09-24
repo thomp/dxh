@@ -4,17 +4,16 @@
 ;;;
 
 ;;;
-;;; prefixes/suffix conventions:
+;;;   foo-xhc
+;;;     - returns a string corresponding to a xhtml document component
 ;;;
-;;;   -xhc
-;;;     - an xhtml document component
-;;;   -xh
+;;;   foo-xh
 ;;;     - an xhtml document
 ;;;
-;;;   -<xhc
+;;;   foo-<xhc
 ;;;     - start tag only
 ;;;
-;;;   html-
+;;;   html-foo
 ;;;     - generate larger structural block (e.g., HTML-TABLE, HTML-LIST
 ;;;
 
@@ -63,7 +62,6 @@
        :stream stream))
 
 (defun caption-xhc (some-string &key stream)
-  "Return as a string <title>...</title>."
   (xhc "caption" some-string :stream stream))
 
 (defun col-xhc (some-string &key width)
@@ -100,14 +98,12 @@
        :stream stream))
 
 (defun h1-xhc (some-string &key class style stream)
-  "Return as a string a <h1>...</h1> component of a xhtml document where SOME-STRING is included verbatim."
   (xhc "h1" some-string :class class :style style :stream stream))
 
 (defun h2-xhc (some-string &key class stream)
   (xhc "h2" some-string :class class :stream stream))
 
 (defun h3-xhc (some-string &key class style stream)
-  "Return as a string a <h1>...</h1> component of a xhtml document where SOME-STRING is included verbatim."
   (xhc "h3" some-string :class class :style style :stream stream))
 
 (defun head-xhc (some-string &key (defaults-p t) title stream)
@@ -144,10 +140,8 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
   (dxg:start-tag "html" :attributes attributes :namespace *xhtml-namespace* :stream stream))
 
 (defun html->xhc (&key stream)
-  "Return start tag corresponding to <html ...>. ATTRIBUTES is a list of lists of the form (<attribute-name> <value>)"
   (dxg:end-tag "html" :namespace *xhtml-namespace* :stream stream))
 
-;; FIXME: more sensical to have as args (head-content body-content ...) instead of (some-string ...)?
 (defun html-xhc (some-string &key attributes stream)
   (write-string
    (concatenate 'string
@@ -176,7 +170,6 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
        :stream stream))
 
 (defun input-xhc (&key accesskey checked class id onblur onfocus readonly style stream type name tabindex value)
-  "Return a string."
   (xhc "input" ""
        :attributes (list 
 		    (list "accesskey" accesskey)
@@ -194,7 +187,6 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
        :stream stream))
 
 (defun li-xhc  (some-string &key class style stream)
-  "Return as a string a <li>...</li> component of a xhtml document where SOME-STRING is included verbatim."
   (xhc "li" some-string :class class :style style :stream stream))
 
 (defun link-xhc (&key href type rel stream)
@@ -238,15 +230,13 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
 				   (list "type" type))))
 
 (defun select-xhc (some-string &key accesskey class id multiple name onchange style stream tabindex)
-  "Return as a string a select component of a xhtml document where SOME-STRING is included verbatim."
   (xhc "select" some-string 
         :attributes (list 
 		     (list "accesskey" accesskey)
 		     (list "multiple" multiple)
 		     (list "name" name)
 		     (list "onchange" onchange)
-		     (list "tabindex" tabindex)
-		     )
+		     (list "tabindex" tabindex))
        :class class :id id :style style :stream stream))
 
 (defun style-xhc (some-string &key protect-with-cdata-p stream (type "text/css"))
@@ -273,7 +263,6 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
   (xhc "sup" some-string :id id :style style :class class :stream stream))
 
 (defun table-xhc (some-string &key stream attributes style class)
-  "Return a string."
   (xhc "table" some-string
        :attributes attributes
        :class class
@@ -281,7 +270,6 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
        :stream stream))
 
 (defun tbody-xhc (some-string &key stream attributes style class)
-  "Return a string."
   (xhc "tbody" some-string
        :attributes attributes
        :class class
@@ -289,11 +277,9 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
        :stream stream))
 
 (defun td-xhc (some-string &key stream)
-  "Return a string."
   (xhc "td" some-string :stream stream))
 
 (defun textarea-xhc (some-string &key accesskey class id onblur onfocus readonly style stream tabindex type name value)
-  "Return a string."
   (xhc "textarea" some-string
        :attributes (list
 		    (list "accesskey" accesskey)
@@ -314,7 +300,6 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
   (xhc "th" some-string :stream stream))
 
 (defun thead-xhc (some-string &key stream attributes style class)
-  "Return a string."
   (xhc "thead" some-string
        :attributes attributes
        :class class
@@ -322,11 +307,9 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
        :stream stream))
 
 (defun title-xhc (some-string &key stream)
-  "Return as a string <title>...</title>."
   (xhc "title" some-string :stream stream))
 
 (defun tr-xhc (some-string &key stream)
-  "Return a string."
   (xhc "tr" some-string :stream stream))
 
 (defun ul-xhc (some-string &key id stream)
