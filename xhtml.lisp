@@ -65,9 +65,11 @@
   (xhc "caption" some-string :stream stream))
 
 (defun col-xhc (some-string &key width)
-  (xhc-protected "col" 
-		 :attributes (list (list "width" width))
-		 :protected-string (if some-string some-string "")))
+  (xhc "col" some-string :id id :stream stream)
+  ;; (xhc-protected "col" 
+  ;; 		 :attributes (list (list "width" width))
+  ;; 		 :protected-string (if some-string some-string ""))
+  )
 
 (defun colgroup-xhc (some-string)
   (xhc-protected "colgroup" :protected-string some-string))
