@@ -10,6 +10,7 @@
    body-xhc
    br-xhc
    button-xhc
+   col-xhc
    div-xhc
    form-xhc
    h1-xhc
