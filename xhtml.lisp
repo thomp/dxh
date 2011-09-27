@@ -297,9 +297,9 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
        :style style
        :stream stream))
 
-(defun th-xhc (some-string &key stream)
+(defun th-xhc (some-string &key attributes stream)
   "Return a string."
-  (xhc "th" some-string :stream stream))
+  (xhc "th" some-string :attributes attributes :stream stream))
 
 (defun thead-xhc (some-string &key stream attributes style class)
   (xhc "thead" some-string
