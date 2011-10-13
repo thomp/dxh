@@ -10,6 +10,7 @@
    body-xhc
    br-xhc
    button-xhc
+   caption-xhc
    col-xhc
    div-xhc
    form-xhc
@@ -22,6 +23,7 @@
    html->xhc
    html-list
    html-xhc
+   i-xhc
    img-xhc
    input-xhc
    li-xhc
