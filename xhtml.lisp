@@ -90,6 +90,15 @@
   "Return as a string a <div>...</div> component of a xhtml document where SOME-STRING is included verbatim."
   (xhc "div" some-string :class class :id id :style style :stream stream))
 
+(defun dd-xhc  (some-string &key attributes class style stream)
+  (xhc "dd" some-string :attributes attributes :class class :style style :stream stream))
+
+(defun dl-xhc  (some-string &key attributes class style stream)
+  (xhc "dl" some-string :attributes attributes :class class :style style :stream stream))
+
+(defun dt-xhc  (some-string &key attributes class style stream)
+  (xhc "dt" some-string :attributes attributes :class class :style style :stream stream))
+
 (defun form-xhc (some-string &key class enctype style stream action name method title)
   "METHOD should be a keyword (e.g., :POST) corresponding to the form method attribute."
   (xhc "form"

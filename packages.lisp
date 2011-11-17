@@ -12,6 +12,9 @@
    button-xhc
    caption-xhc
    col-xhc
+   dd-xhc
+   dl-xhc
+   dt-xhc
    div-xhc
    form-xhc
    h1-xhc
