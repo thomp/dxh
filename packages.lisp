@@ -48,6 +48,7 @@
    textarea-xhc
    thead-xhc
    th-xhc
+   title-xhc
    tr-xhc
    ul-xhc
    xhdoc)
