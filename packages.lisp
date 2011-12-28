@@ -5,51 +5,51 @@
   (:export
    *styles*
    *xhtml-namespace*
-   a-xhc
-   b-xhc
-   body-xhc
-   br-xhc
-   button-xhc
-   caption-xhc
-   col-xhc
-   dd-xhc
-   dl-xhc
-   dt-xhc
-   div-xhc
-   form-xhc
-   h1-xhc
-   h2-xhc
-   h3-xhc
-   head-xhc
-   hr-xhc
+   a
+   b
+   body
+   br
+   button
+   caption
+   col
+   dd
+   dl
+   dt
+   div
+   form
+   h1
+   h2
+   h3
+   head
+   hr
    html-<xhc
    html->xhc
    html-list
-   html-xhc
-   i-xhc
-   img-xhc
-   input-xhc
-   li-xhc
-   li-xhcs
-   link-xhc
-   ol-xhc
-   option-xhc
-   p-xhc
-   pre-xhc
-   script-xhc
-   select-xhc
-   span-xhc
-   style-xhc
-   sub-xhc
-   sup-xhc
-   table-xhc
-   tbody-xhc
-   td-xhc
-   textarea-xhc
-   thead-xhc
-   th-xhc
-   title-xhc
-   tr-xhc
-   ul-xhc
+   html
+   i
+   img
+   input
+   li
+   lis
+   link
+   ol
+   option
+   p
+   pre
+   script
+   select
+   span
+   style
+   sub
+   sup
+   table
+   tbody
+   td
+   textarea
+   thead
+   th
+   title
+   tr
+   ul
    xhdoc)
   (:documentation "This program is released under the terms of the Lisp Lesser GNU Public License http://opensource.franz.com/preamble.html, also known as the LLGPL. Copyright: David A. Thompson, 2009-2011"))

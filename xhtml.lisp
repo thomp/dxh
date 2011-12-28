@@ -1,14 +1,14 @@
 (in-package :dxh)
 ;;;
-;;; xhtml.lisp: code for generating generic xhtml
+;;; xhtml.lisp: generate generic XHTML
 ;;;
 
 ;;;
-;;;   foo-xhc
-;;;     - returns a string corresponding to a xhtml document component
+;;;   foo
+;;;     - return a string corresponding to a xhtml document component
 ;;;
 ;;;   foo-xh
-;;;     - an xhtml document
+;;;     - return a XHTML document
 ;;;
 ;;;   foo-<xhc
 ;;;     - start tag only
@@ -17,7 +17,7 @@
 ;;;     - generate larger structural block (e.g., HTML-TABLE, HTML-LIST
 ;;;
 
-(defun a-xhc (string &key attributes id href rwname rwval style stream target title)
+(defun a (string &key attributes id href rwname rwval style stream target title)
   "Return <a> component of html document to stream STREAM. Rewrite URL with RWNAME (name) and RWVAL (value), if both are non-nil."
   (declare (string string))
   (let ((newhref
@@ -35,18 +35,18 @@
 	       (list "title" title)
 	       ))))
 
-(defun b-xhc (some-string &key attributes stream)
+(defun b (some-string &key attributes stream)
   (xhc "b" some-string :attributes attributes :stream stream))
 
-(defun body-xhc (some-string &key attributes stream)
+(defun body (some-string &key attributes stream)
   "Return as a string the body of a xhtml document where SOME-STRING is included verbatim in the <body> component of the xhtml document. Output is sent to stream STREAM."
   (assert (stringp some-string) nil "SOME-STRING must be a string")
   (xhc "body" some-string :attributes attributes :stream stream))
 
-(defun br-xhc (&key attributes id stream)
+(defun br (&key attributes id stream)
   (xhc "br" nil :attributes attributes :id id :stream stream))
 
-(defun button-xhc (some-string &key accesskey class disabled id onblur onclick onfocus style stream tabindex title type name value)
+(defun button (some-string &key accesskey class disabled id onblur onclick onfocus style stream tabindex title type name value)
   "Return a string."
   (xhc "button" some-string
        :attributes (list 
@@ -65,17 +65,17 @@
        :style style
        :stream stream))
 
-(defun caption-xhc (some-string &key attributes stream)
+(defun caption (some-string &key attributes stream)
   (xhc "caption" some-string :attributes attributes :stream stream))
 
-(defun col-xhc (some-string &key id stream width)
+(defun col (some-string &key id stream width)
   (xhc "col" some-string :attributes (list (list "width" width)) :id id :stream stream)
   ;; (xhc-protected "col" 
   ;; 		 :attributes (list (list "width" width))
   ;; 		 :protected-string (if some-string some-string ""))
   )
 
-(defun colgroup-xhc (some-string &key attributes)
+(defun colgroup (some-string &key attributes)
   (xhc-protected "colgroup" :attributes attributes :protected-string some-string))
 
 (defun default-head-content (&optional stream)
@@ -86,20 +86,20 @@
        "") 
    stream))
 
-(defun div-xhc (some-string &key class id style stream)
+(defun div (some-string &key class id style stream)
   "Return as a string a <div>...</div> component of a xhtml document where SOME-STRING is included verbatim."
   (xhc "div" some-string :class class :id id :style style :stream stream))
 
-(defun dd-xhc  (some-string &key attributes class style stream)
+(defun dd  (some-string &key attributes class style stream)
   (xhc "dd" some-string :attributes attributes :class class :style style :stream stream))
 
-(defun dl-xhc  (some-string &key attributes class style stream)
+(defun dl  (some-string &key attributes class style stream)
   (xhc "dl" some-string :attributes attributes :class class :style style :stream stream))
 
-(defun dt-xhc  (some-string &key attributes class style stream)
+(defun dt  (some-string &key attributes class style stream)
   (xhc "dt" some-string :attributes attributes :class class :style style :stream stream))
 
-(defun form-xhc (some-string &key class enctype style stream action name method title)
+(defun form (some-string &key class enctype style stream action name method title)
   "METHOD should be a keyword (e.g., :POST) corresponding to the form method attribute."
   (xhc "form"
        some-string
@@ -114,16 +114,16 @@
        :style style
        :stream stream))
 
-(defun h1-xhc (some-string &key attributes class style stream)
+(defun h1 (some-string &key attributes class style stream)
   (xhc "h1" some-string :attributes attributes :class class :style style :stream stream))
 
-(defun h2-xhc (some-string &key attributes class stream)
+(defun h2 (some-string &key attributes class stream)
   (xhc "h2" some-string :attributes attributes :class class :stream stream))
 
-(defun h3-xhc (some-string &key attributes class style stream)
+(defun h3 (some-string &key attributes class style stream)
   (xhc "h3" some-string :attributes attributes :class class :style style :stream stream))
 
-(defun head-xhc (some-string &key (defaults-p t) title stream)
+(defun head (some-string &key (defaults-p t) title stream)
   "Return the string corresponding to the <head>...</head> component of a xhtml document. If STREAM isn't NIL, send the string returned to stream STREAM. The string TITLE, if non-nil, is a string which specifies the <title> child of <head>. SOME-STRING is included verbatim as a child of the <head> node.
 
 If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONTENT) in the component. See *STYLES* for defining default stylesheets."
@@ -133,23 +133,23 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
     :protected-string
     (with-output-to-string (s) 
       (if defaults-p (default-head-content s))
-      (if title (title-xhc title :stream s))
+      (if title (title title :stream s))
       (if (stringp some-string)
 	  (write-string some-string s))))
    stream))
 
-(defun hr-xhc (&key attributes stream style)
+(defun hr (&key attributes stream style)
   (xhc "hr" nil :attributes attributes :stream stream :style style))
 
 (defun html-list (items &key (type :ul) stream)
   "Return a string, representing a list. Send string to STREAM."
   (apply
-   (cond ((eq type :ul) 'ul-xhc)
-	 ((eq type :ol) 'ol-xhc)
-	 (t 'ul-xhc))
+   (cond ((eq type :ul) 'ul)
+	 ((eq type :ol) 'ol)
+	 (t 'ul))
    (list (with-output-to-string (s)
 	   (dolist (i items)
-	     (li-xhc i :stream s)))
+	     (li i :stream s)))
 	 :stream stream)))
 
 (defun html-<xhc (&key attributes stream)
@@ -159,7 +159,7 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
 (defun html->xhc (&key stream)
   (dxg:end-tag "html" :namespace *xhtml-namespace* :stream stream))
 
-(defun html-xhc (some-string &key attributes stream)
+(defun html (some-string &key attributes stream)
   (write-string
    (concatenate 'string
     (html-<xhc
@@ -177,10 +177,10 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
     (html->xhc))
    stream))
   
-(defun i-xhc  (some-string &key attributes class style stream)
+(defun i  (some-string &key attributes class style stream)
   (xhc "i" some-string :attributes attributes :class class :style style :stream stream))
 
-(defun img-xhc (&key (alt "ALT not specified.") class src stream style title)
+(defun img (&key (alt "ALT not specified.") class src stream style title)
   "Return a string."
   (xhc "img" ""
        :attributes (list (list "alt" alt)
@@ -191,7 +191,7 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
        :style style
        :stream stream))
 
-(defun input-xhc (&key accesskey checked class id onblur onfocus readonly style stream type name tabindex title value)
+(defun input (&key accesskey checked class id onblur onfocus readonly style stream type name tabindex title value)
   (xhc "input" ""
        :attributes (list 
 		    (list "accesskey" accesskey)
@@ -209,10 +209,10 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
        :style style
        :stream stream))
 
-(defun li-xhc  (some-string &key attributes class style stream)
+(defun li  (some-string &key attributes class style stream)
   (xhc "li" some-string :attributes attributes :class class :style style :stream stream))
 
-(defun link-xhc (&key href type rel stream title)
+(defun link (&key href type rel stream title)
   (xhc "link" 
        nil
        :attributes (list (list "href" href)
@@ -221,10 +221,10 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
 			 (list "type" type))
        :stream stream))
 
-(defun ol-xhc  (some-string &key attributes class id style stream)
+(defun ol  (some-string &key attributes class id style stream)
   (xhc "ol" some-string :attributes attributes :class class :id id :style style :stream stream))
 
-(defun option-xhc (some-string &key class label selected style stream title value)
+(defun option (some-string &key class label selected style stream title value)
   (xhc "option" some-string 
         :attributes (list 
 		     (list "label" label)
@@ -233,13 +233,13 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
 		     (list "title" title))
        :class class :style style :stream stream))
 
-(defun p-xhc (some-string &key attributes class style stream)
+(defun p (some-string &key attributes class style stream)
   (xhc "p" some-string :attributes attributes :class class :style style :stream stream))
 
-(defun pre-xhc (some-string &key attributes class id style stream)
+(defun pre (some-string &key attributes class id style stream)
   (xhc "pre" some-string :attributes attributes :class class :id id :style style :stream stream))
 
-(defun script-xhc (some-string &key (protect-with-cdata-p t) src stream type)
+(defun script (some-string &key (protect-with-cdata-p t) src stream type)
   "TYPE is a string (e.g., 'text/javascript') representing the type attribute for the script tag."
   (xhc "script"
        (if protect-with-cdata-p
@@ -254,7 +254,7 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
 				   (list "src" src)
 				   (list "type" type))))
 
-(defun select-xhc (some-string &key accesskey class id multiple name onchange style stream tabindex title)
+(defun select (some-string &key accesskey class id multiple name onchange style stream tabindex title)
   (xhc "select" some-string 
         :attributes (list 
 		     (list "accesskey" accesskey)
@@ -266,7 +266,7 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
 		     )
        :class class :id id :style style :stream stream))
 
-(defun style-xhc (some-string &key protect-with-cdata-p stream (type "text/css"))
+(defun style (some-string &key protect-with-cdata-p stream (type "text/css"))
   "TYPE is a string representing the type attribute."
   (xhc "style"
        (if protect-with-cdata-p
@@ -280,33 +280,33 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
        :attributes (list (list "type" type))
        :stream stream))
 
-(defun span-xhc (some-string &key attributes style class stream)
+(defun span (some-string &key attributes style class stream)
   (xhc "span" some-string :attributes attributes :style style :class class :stream stream))
 
-(defun sub-xhc (some-string &key attributes style class stream)
+(defun sub (some-string &key attributes style class stream)
   (xhc "sub" some-string :attributes attributes :style style :class class :stream stream))
 
-(defun sup-xhc (some-string &key attributes id style class stream)
+(defun sup (some-string &key attributes id style class stream)
   (xhc "sup" some-string :attributes attributes :id id :style style :class class :stream stream))
 
-(defun table-xhc (some-string &key stream attributes style class)
+(defun table (some-string &key stream attributes style class)
   (xhc "table" some-string
        :attributes attributes
        :class class
        :style style
        :stream stream))
 
-(defun tbody-xhc (some-string &key stream attributes style class)
+(defun tbody (some-string &key stream attributes style class)
   (xhc "tbody" some-string
        :attributes attributes
        :class class
        :style style
        :stream stream))
 
-(defun td-xhc (some-string &key attributes stream)
+(defun td (some-string &key attributes stream)
   (xhc "td" some-string :attributes attributes :stream stream))
 
-(defun textarea-xhc (some-string &key accesskey class id onblur onfocus readonly style stream tabindex title type name value)
+(defun textarea (some-string &key accesskey class id onblur onfocus readonly style stream tabindex title type name value)
   (xhc "textarea" some-string
        :attributes (list
 		    (list "accesskey" accesskey)
@@ -324,24 +324,24 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
        :style style
        :stream stream))
 
-(defun th-xhc (some-string &key attributes stream)
+(defun th (some-string &key attributes stream)
   "Return a string."
   (xhc "th" some-string :attributes attributes :stream stream))
 
-(defun thead-xhc (some-string &key stream attributes style class)
+(defun thead (some-string &key stream attributes style class)
   (xhc "thead" some-string
        :attributes attributes
        :class class
        :style style
        :stream stream))
 
-(defun title-xhc (some-string &key attributes stream)
+(defun title (some-string &key attributes stream)
   (xhc "title" some-string :attributes attributes :stream stream))
 
-(defun tr-xhc (some-string &key attributes stream)
+(defun tr (some-string &key attributes stream)
   (xhc "tr" some-string :attributes attributes :stream stream))
 
-(defun ul-xhc (some-string &key attributes id stream)
+(defun ul (some-string &key attributes id stream)
   (xhc "ul" some-string :attributes attributes :id id :stream stream))
 
 ;; FIXME: use DXG:XMLC
@@ -391,8 +391,8 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
   "BODY is a string inserted verbatim inside <body>...</body>. STYLESHEETS is a list of lists. Each sublist contains, at the first position, a string representing a URL (corresponding to the 'href' attribute), and, at the second position, a string representing the stylesheet type (corresponding to the 'type' attribute. "
   (with-output-to-string (s)
     (dxg:xml-spec :stylesheets stylesheets :stream s)
-    (html-xhc
+    (html
      (with-output-to-string (s2)
-       (head-xhc nil :title title :stream s2) 
-       (body-xhc body :stream s2))
+       (head nil :title title :stream s2) 
+       (body body :stream s2))
      :stream s)))
