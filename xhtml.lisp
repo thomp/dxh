@@ -230,8 +230,7 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
 		     (list "label" label)
 		     (list "value" value)
 		     (list "selected" selected)
-		     (list "title" title)
-		     )
+		     (list "title" title))
        :class class :style style :stream stream))
 
 (defun p-xhc (some-string &key attributes class style stream)
