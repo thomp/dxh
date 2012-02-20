@@ -32,6 +32,7 @@
    li
    lis
    link
+   meta
    ol
    option
    p
