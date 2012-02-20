@@ -22,14 +22,14 @@
 	     (url-rewrite:add-get-param-to-url href rwname rwval)
 	     href)))
     (xhc "a" string
-	 :attributes attributes 
+	 :attributes
+	 (append attributes
+		 (list (list "href" newhref)
+		       (list "target" target)
+		       (list "title" title)))
 	 :id id
 	 :style style
-	 :stream stream
-	 :attributes
-	 (list (list "href" newhref)
-	       (list "target" target)
-	       (list "title" title)))))
+	 :stream stream)))
 
 (defun b (some-string &key attributes stream)
   (xhc "b" some-string :attributes attributes :stream stream))
@@ -119,9 +119,9 @@
   (xhc "h3" some-string :attributes attributes :class class :style style :stream stream))
 
 (defun head (some-string &key (defaults-p t) title stream)
-  "Return the string corresponding to the <head>...</head> component of a xhtml document. If STREAM isn't NIL, send the string returned to stream STREAM. The string TITLE, if non-nil, is a string which specifies the <title> child of <head>. SOME-STRING is included verbatim as a child of the <head> node.
+  "Return the string corresponding to the <head>...</head> component of a xhtml document. If STREAM isn't NIL, send the string returned to stream STREAM. The string TITLE, if non-nil, is a string which specifies the <title>...</title> child of <head>...</head>. SOME-STRING is included verbatim as a child of the <head>...</head> node.
 
-If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONTENT) in the component. See *STYLES* for defining default stylesheets."
+If DEFAULTS-P is nil, don't include default XHTML content (see DEFAULT-HEAD-CONTENT) in the component. See *STYLES* for defining default stylesheets."
   (write-string
    (xhc-protected 
     "head"
