@@ -1,24 +1,21 @@
 (in-package :dxh)
 ;;;
-;;; xhtml.lisp: generate generic XHTML
+;;; xhtml.lisp: generate XHTML
 ;;;
 
-;;;
-;;;   foo
-;;;     - return a string corresponding to a xhtml document component
-;;;
-;;;   foo-xh
-;;;     - return a XHTML document
-;;;
-;;;   foo-<xhc
-;;;     - start tag only
-;;;
-;;;   html-foo
-;;;     - generate larger structural block (e.g., HTML-TABLE, HTML-LIST
-;;;
+;;
+;;   foo
+;;     - return a string corresponding to a XHTML document component
+;;   foo-xh
+;;     - return a XHTML document
+;;   foo-<xhc
+;;     - start tag only
+;;   html-foo
+;;     - generate larger structural block (e.g., HTML-TABLE, HTML-LIST, ...)
+;;
 
 (defun a (string &key attributes id href rwname rwval style stream target title)
-  "Return <a> component of html document to stream STREAM. Rewrite URL with RWNAME (name) and RWVAL (value), if both are non-nil."
+  "Write <a>...</a> component to stream STREAM. Rewrite URL with RWNAME (name) and RWVAL (value), if both are non-nil."
   (declare (string string))
   (let ((newhref
 	 (if (and rwname rwval)
@@ -32,14 +29,13 @@
 	 :attributes
 	 (list (list "href" newhref)
 	       (list "target" target)
-	       (list "title" title)
-	       ))))
+	       (list "title" title)))))
 
 (defun b (some-string &key attributes stream)
   (xhc "b" some-string :attributes attributes :stream stream))
 
 (defun body (some-string &key attributes stream)
-  "Return as a string the body of a xhtml document where SOME-STRING is included verbatim in the <body> component of the xhtml document. Output is sent to stream STREAM."
+  "Return as a string the body <body>...</body> where SOME-STRING is included verbatim in the <body>...</body> component. Output is sent to stream STREAM."
   (assert (stringp some-string) nil "SOME-STRING must be a string")
   (xhc "body" some-string :attributes attributes :stream stream))
 
@@ -108,8 +104,7 @@
 		    (list "method" (if method (string method)))
 		    (list "action" action)
 		    (list "name" name)
-		    (list "title" title)
-		    )
+		    (list "title" title))
        :class class
        :style style
        :stream stream))
@@ -185,8 +180,7 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
   (xhc "img" ""
        :attributes (list (list "alt" alt)
 			 (list "src" src)
-			 (list "title" title)
-			 )
+			 (list "title" title))
        :class class
        :style style
        :stream stream))
@@ -213,7 +207,7 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
   (xhc "li" some-string :attributes attributes :class class :style style :stream stream))
 
 (defun link (&key href type rel stream title)
-  (xhc "link" 
+  (xhc "link"
        nil
        :attributes (list (list "href" href)
 			 (list "rel" rel)
@@ -221,7 +215,17 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
 			 (list "type" type))
        :stream stream))
 
-(defun ol  (some-string &key attributes class id style stream)
+(defun meta (some-string &key (content "text/html;charset=utf-8") (http-equiv "Content-Type") name scheme stream)
+  (xhc "meta"
+       some-string
+       :attributes (list
+		    (list "content" content)
+		    (list "http-equiv" http-equiv)
+		    (list "name" name)
+		    (list "scheme" scheme))
+       :stream stream))
+
+(defun ol (some-string &key attributes class id style stream)
   (xhc "ol" some-string :attributes attributes :class class :id id :style style :stream stream))
 
 (defun option (some-string &key class label selected style stream title value)
@@ -262,8 +266,7 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
 		     (list "name" name)
 		     (list "onchange" onchange)
 		     (list "tabindex" tabindex)
-		     (list "title" title)		    
-		     )
+		     (list "title" title))
        :class class :id id :style style :stream stream))
 
 (defun style (some-string &key protect-with-cdata-p stream (type "text/css"))
@@ -317,8 +320,7 @@ If DEFAULTS-P is nil, don't include default xhtml content (see DEFAULT-HEAD-CONT
 		    (list "value" value)
 		    (list "onfocus" onfocus)
 		    (list "onblur" onblur)
-		    (list "title" title)
-		    )
+		    (list "title" title))
        :class class
        :id id
        :style style
