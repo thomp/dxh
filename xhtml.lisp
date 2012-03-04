@@ -35,7 +35,7 @@
   (xhc "b" some-string :attributes attributes :stream stream))
 
 (defun body (some-string &key attributes stream)
-  "Return as a string the body <body>...</body> where SOME-STRING is included verbatim in the <body>...</body> component. Output is sent to stream STREAM."
+  "Return as a string the body \"<body>...</body>\" where SOME-STRING is included verbatim in the <body>...</body> component. Output is sent to stream STREAM."
   (assert (stringp some-string) nil "SOME-STRING must be a string")
   (xhc "body" some-string :attributes attributes :stream stream))
 
@@ -63,6 +63,9 @@
 
 (defun caption (some-string &key attributes stream)
   (xhc "caption" some-string :attributes attributes :stream stream))
+
+(defun code (some-string &key attributes style class stream)
+  (xhc "code" some-string :attributes attributes :style style :class class :stream stream))
 
 (defun col (some-string &key id stream width)
   (xhc "col" some-string :attributes (list (list "width" width)) :id id :stream stream)
@@ -94,6 +97,9 @@
 
 (defun dt  (some-string &key attributes class style stream)
   (xhc "dt" some-string :attributes attributes :class class :style style :stream stream))
+
+(defun em (some-string &key attributes stream)
+  (xhc "em" some-string :attributes attributes :stream stream))
 
 (defun form (some-string &key class enctype style stream action name method title)
   "METHOD should be a keyword (e.g., :POST) corresponding to the form method attribute."
@@ -225,6 +231,15 @@ If DEFAULTS-P is nil, don't include default XHTML content (see DEFAULT-HEAD-CONT
 		    (list "scheme" scheme))
        :stream stream))
 
+(defun object (some-string &key data type stream) 
+  (xhc "object"
+       some-string
+       ;; HTML 4.01 attributes: declare classid codebase data type codetype archive standby height width usemap name tabindex  
+       :attributes (list
+		    (list "data" data)
+		    (list "type" type))
+       :stream stream))
+
 (defun ol (some-string &key attributes class id style stream)
   (xhc "ol" some-string :attributes attributes :class class :id id :style style :stream stream))
 
@@ -269,6 +284,12 @@ If DEFAULTS-P is nil, don't include default XHTML content (see DEFAULT-HEAD-CONT
 		     (list "title" title))
        :class class :id id :style style :stream stream))
 
+(defun span (some-string &key attributes style class stream)
+  (xhc "span" some-string :attributes attributes :style style :class class :stream stream))
+
+(defun strong (some-string &key attributes stream)
+  (xhc "strong" some-string :attributes attributes :stream stream))
+
 (defun style (some-string &key protect-with-cdata-p stream (type "text/css"))
   "TYPE is a string representing the type attribute."
   (xhc "style"
@@ -282,9 +303,6 @@ If DEFAULTS-P is nil, don't include default XHTML content (see DEFAULT-HEAD-CONT
 	   some-string) 
        :attributes (list (list "type" type))
        :stream stream))
-
-(defun span (some-string &key attributes style class stream)
-  (xhc "span" some-string :attributes attributes :style style :class class :stream stream))
 
 (defun sub (some-string &key attributes style class stream)
   (xhc "sub" some-string :attributes attributes :style style :class class :stream stream))
