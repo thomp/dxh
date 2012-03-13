@@ -2,18 +2,6 @@
 ;;;
 ;;; xhtml.lisp: generate XHTML
 ;;;
-
-;;
-;;   foo
-;;     - return a string corresponding to a XHTML document component
-;;   foo-xh
-;;     - return a XHTML document
-;;   foo-<xhc
-;;     - start tag only
-;;   html-foo
-;;     - generate larger structural block (e.g., HTML-TABLE, HTML-LIST, ...)
-;;
-
 (defun a (string &key attributes id href rwname rwval style stream target title)
   "Write <a>...</a> component to stream STREAM. Rewrite URL with RWNAME (name) and RWVAL (value), if both are non-nil."
   (declare (string string))
