@@ -22,6 +22,9 @@
 (defun b (some-string &key attributes stream)
   (xhc "b" some-string :attributes attributes :stream stream))
 
+(defun blockqoute (some-string &key attributes class style stream)
+  (xhc "blockquote" some-string :attributes attributes :class class :style style :stream stream))
+
 (defun body (some-string &key attributes stream)
   "Return as a string the body \"<body>...</body>\" where SOME-STRING is included verbatim in the <body>...</body> component. Output is sent to stream STREAM."
   (assert (stringp some-string) nil "SOME-STRING must be a string")
