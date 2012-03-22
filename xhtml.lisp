@@ -22,7 +22,7 @@
 (defun b (some-string &key attributes stream)
   (xhc "b" some-string :attributes attributes :stream stream))
 
-(defun blockqoute (some-string &key attributes class style stream)
+(defun blockquote (some-string &key attributes class style stream)
   (xhc "blockquote" some-string :attributes attributes :class class :style style :stream stream))
 
 (defun body (some-string &key attributes stream)
