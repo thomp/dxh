@@ -352,8 +352,8 @@ If DEFAULTS-P is nil, don't include default XHTML content (see DEFAULT-HEAD-CONT
 (defun tr (some-string &key attributes stream)
   (xhc "tr" some-string :attributes attributes :stream stream))
 
-(defun ul (some-string &key attributes id stream)
-  (xhc "ul" some-string :attributes attributes :id id :stream stream))
+(defun u (some-string &key attributes id stream)
+  (xhc "u" some-string :attributes attributes :id id :stream stream))
 
 ;; FIXME: use DXG:XMLC
 (defun xhc (tag some-string &key attributes class id style stream)
