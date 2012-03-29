@@ -59,11 +59,7 @@
   (xhc "code" some-string :attributes attributes :style style :class class :stream stream))
 
 (defun col (some-string &key id stream width)
-  (xhc "col" some-string :attributes (list (list "width" width)) :id id :stream stream)
-  ;; (xhc-protected "col" 
-  ;; 		 :attributes (list (list "width" width))
-  ;; 		 :protected-string (if some-string some-string ""))
-  )
+  (xhc "col" some-string :attributes (list (list "width" width)) :id id :stream stream))
 
 (defun colgroup (some-string &key attributes)
   (xhc-protected "colgroup" :attributes attributes :protected-string some-string))
@@ -355,31 +351,15 @@ If DEFAULTS-P is nil, don't include default XHTML content (see DEFAULT-HEAD-CONT
 (defun u (some-string &key attributes id stream)
   (xhc "u" some-string :attributes attributes :id id :stream stream))
 
-;; FIXME: use DXG:XMLC
 (defun xhc (tag some-string &key attributes class id style stream)
   "Return as a string a <tag>...</tag> component of a xhtml document where SOME-STRING is included verbatim as the value of the node. If SOME-STRING is NIL, return <tag ... />. ATTRIBUTES is an alist of strings where car is attribute and cadr is attribute value (see DXG:XMLC). If STREAM is non-NIL, write string to stream STREAM."
   (assert (stringp tag))
   (assert (listp attributes))
-  ;;(assert (dat-cl-utils:noas some-string) nil (format nil "XHC: SOME-STRING should be a string or nil; instead it was ~A." some-string))
   (let ((attributes
 	 (append (list (list "class" class)
 		       (list "style" style)
 		       (list "id" id))
-		 attributes))
-	;; (return-string
-	;;  (if some-string
-	;;      (concatenate 'string
-	;;       (dxg:start-tag 
-	;; 	tag
-	;; 	:verbatim-attributes attributes-string 
-	;; 	:namespace *xhtml-namespace*)
-	;;       some-string 
-	;;       (dxt:end-tag tag :namespace *xhtml-namespace*))
-	;;      ;; FIXME: should be able to pass verbatim attributes here
-	;;      (dxg:empty-tag tag 
-	;; 			 :namespace *xhtml-namespace* 
-	;; 			 :attributes-string attributes-string))) 
-	)
+		 attributes)))
     (dxg:xmlc tag some-string
 	      :attr attributes
 	      :namespace *xhtml-namespace*
