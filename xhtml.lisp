@@ -256,9 +256,10 @@ If DEFAULTS-P is nil, don't include default XHTML content (see DEFAULT-HEAD-CONT
 		  "
 /* ]]> */")
 	   some-string)
-       :stream stream :attributes (list 
-				   (list "src" src)
-				   (list "type" type))))
+       :stream stream 
+       :attributes (list 
+		    (list "src" src)
+		    (list "type" type))))
 
 (defun select (some-string &key accesskey class id multiple name onchange style stream tabindex title)
   (xhc "select" some-string 
@@ -353,17 +354,29 @@ If DEFAULTS-P is nil, don't include default XHTML content (see DEFAULT-HEAD-CONT
 
 (defun xhc (tag some-string &key attributes class id style stream)
   "Return as a string a <tag>...</tag> component of a xhtml document where SOME-STRING is included verbatim as the value of the node. If SOME-STRING is NIL, return <tag ... />. ATTRIBUTES is an alist of strings where car is attribute and cadr is attribute value (see DXG:XMLC). If STREAM is non-NIL, write string to stream STREAM."
-  (assert (stringp tag))
-  (assert (listp attributes))
-  (let ((attributes
-	 (append (list (list "class" class)
-		       (list "style" style)
-		       (list "id" id))
-		 attributes)))
-    (dxg:xmlc tag some-string
-	      :attr attributes
-	      :namespace *xhtml-namespace*
-	      :stream stream)))
+  (declare (list attributes) 
+	   (string tag))
+  ;;(assert (stringp tag))
+  ;;(assert (listp attributes))
+  (dxg:xmlc tag some-string
+	    :attr (append (list (list "class" class)
+				(list "style" style)
+				(list "id" id))
+			  attributes)
+	    :namespace *xhtml-namespace*
+	    :stream stream))
+
+(defun xhc* (tag some-string &key attributes class id style stream)
+  "Return as a string a <tag>...</tag> component of a xhtml document where SOME-STRING is included verbatim as the value of the node. If SOME-STRING is NIL, return <tag ... />. ATTRIBUTES is an alist of strings where car is attribute and cadr is attribute value (see DXG:XMLC). If STREAM is non-NIL, write string to stream STREAM."
+  (declare (list attributes) 
+	   (string tag))
+  (dxg:xmlc* tag some-string
+	     :attr (append (list (list "class" class)
+				 (list "style" style)
+				 (list "id" id))
+			   attributes)
+	     :namespace *xhtml-namespace*
+	     :stream stream))
 
 (defun xhc-protected (label &key (protected-string "") attributes)
   "Return <label> XHTML component of an xforms/xhtml document. ATTRIBUTES is a list of lists. Each sublist has two members, the first is a string corresponding to the attribute and the second is a string corresponding to the attribute value. PROTECTED-STRING is a string which is included verbatim as a child of the <label>...</label> node."
@@ -372,8 +385,8 @@ If DEFAULTS-P is nil, don't include default XHTML content (see DEFAULT-HEAD-CONT
   (assert (stringp protected-string))
   (with-output-to-string (s)
     (dxg:start-tag label
-			:attributes attributes
-			:namespace *xhtml-namespace* :stream s)
+		   :attributes attributes
+		   :namespace *xhtml-namespace* :stream s)
     (write-string protected-string s)
     (dxg:end-tag label :namespace *xhtml-namespace* :stream s)))
 
