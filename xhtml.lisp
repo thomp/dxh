@@ -352,6 +352,9 @@ If DEFAULTS-P is nil, don't include default XHTML content (see DEFAULT-HEAD-CONT
 (defun u (some-string &key attributes id stream)
   (xhc "u" some-string :attributes attributes :id id :stream stream))
 
+(defun ul (some-string &key attributes id stream)
+  (xhc "ul" some-string :attributes attributes :id id :stream stream))
+
 (defun xhc (tag some-string &key attributes class id style stream)
   "Return as a string a <tag>...</tag> component of a xhtml document where SOME-STRING is included verbatim as the value of the node. If SOME-STRING is NIL, return <tag ... />. ATTRIBUTES is an alist of strings where car is attribute and cadr is attribute value (see DXG:XMLC). If STREAM is non-NIL, write string to stream STREAM."
   (declare (list attributes) 
