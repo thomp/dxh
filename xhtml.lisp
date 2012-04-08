@@ -114,7 +114,7 @@
 (defun head (some-string &key (defaults-p t) title stream)
   "Return the string corresponding to the <head>...</head> component of a xhtml document. If STREAM isn't NIL, send the string returned to stream STREAM. The string TITLE, if non-nil, is a string which specifies the <title>...</title> child of <head>...</head>. SOME-STRING is included verbatim as a child of the <head>...</head> node.
 
-If DEFAULTS-P is nil, don't include default XHTML content (see DEFAULT-HEAD-CONTENT) in the component. See *STYLES* for defining default stylesheets."
+If DEFAULTS-P is nil, don't include default XHTML content (see DEFAULT-HEAD-CONTENT) in the component."
   (write-string
    (xhc-protected 
     "head"
@@ -164,7 +164,23 @@ If DEFAULTS-P is nil, don't include default XHTML content (see DEFAULT-HEAD-CONT
     some-string
     (html->xhc))
    stream))
-  
+
+(defun html* (some-string &key attributes stream)
+  (html-<xhc
+   :attributes
+   (cond ((not attributes)
+	  ;; default to xhtml
+	  (if *xhtml-namespace*
+	      (list (list 
+		     (if (string= "" *xhtml-namespace*)
+			 "xmlns"
+			 (format nil "xmlns:~A" *xhtml-namespace*))
+		     "http://www.w3.org/1999/xhtml"))))
+	 (t attributes))
+   :stream stream)
+  (write-string some-string stream)
+  (html->xhc :stream stream))
+
 (defun i  (some-string &key attributes class style stream)
   (xhc "i" some-string :attributes attributes :class class :style style :stream stream))
 
@@ -395,7 +411,7 @@ If DEFAULTS-P is nil, don't include default XHTML content (see DEFAULT-HEAD-CONT
 
 ;; FIXME: NIL stylesheets should correspond to document w/o stylesheets according to current docs... 
 (defun xhdoc (body &key stylesheets title)
-  "BODY is a string inserted verbatim inside <body>...</body>. STYLESHEETS is a list of lists. Each sublist contains, at the first position, a string representing a URL (corresponding to the 'href' attribute), and, at the second position, a string representing the stylesheet type (corresponding to the 'type' attribute. "
+  "BODY is a string inserted verbatim inside <body>...</body>. STYLESHEETS is a list of lists. Each sublist contains, at the first position, a string representing a URL (corresponding to the 'href' attribute), and, at the second position, a string representing the stylesheet type (corresponding to the 'type' attribute."
   (with-output-to-string (s)
     (dxg:xml-spec :stylesheets stylesheets :stream s)
     (html
