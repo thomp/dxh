@@ -4,7 +4,7 @@
   (:use :cl)
   (:export
    ;; HTML tags
-   a b blockquote body br button caption code col dd dl dt div em form h1 h2 h3 head hr html i img input li link meta object ol option p pre script select span strong style sub sup table tbody td textarea thead th title tr u ul
+   a b blockquote body br button caption code col dd del dl dt div em form h1 h2 h3 head hr html i img input label li link meta object ol option p pre script select span strong style sub sup table tbody td textarea thead th title tr u ul
    ;; DXH-specific
    *xhtml-namespace*
    html-<xhc
