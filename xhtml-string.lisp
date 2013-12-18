@@ -3,7 +3,7 @@
 ;;; xhtml-string.lisp: 
 ;;;     functions which return a string representing an HTML element
 ;;;
-(defun a (string &key attributes id href rwname rwval style stream target title)
+(defun a (string &key attributes class id href rwname rwval style stream target title)
   "Write <a>...</a> component to stream STREAM. Rewrite URL with RWNAME (name) and RWVAL (value), if both are non-nil."
   (declare (string string))
   (let ((newhref
@@ -16,6 +16,7 @@
 		 (list (list "href" newhref)
 		       (list "target" target)
 		       (list "title" title)))
+	 :class class
 	 :id id
 	 :style style
 	 :stream stream)))
@@ -189,13 +190,14 @@
 (defun pre (some-string &key attributes class id style stream)
   (xhc "pre" some-string :attributes attributes :class class :id id :style style :stream stream))
 
-(defun select (some-string &key accesskey class id multiple name onchange style stream tabindex title)
+(defun select (some-string &key accesskey class id multiple name onchange size style stream tabindex title)
   (xhc "select" some-string 
         :attributes (list 
 		     (list "accesskey" accesskey)
 		     (list "multiple" multiple)
 		     (list "name" name)
 		     (list "onchange" onchange)
+		     (list "size" size)
 		     (list "tabindex" tabindex)
 		     (list "title" title))
        :class class :id id :style style :stream stream))
