@@ -23,7 +23,7 @@ If DEFAULTS-P is nil, don't include default XHTML content (see DEFAULT-HEAD-CONT
     :protected-string
     (with-output-to-string (s) 
       (if defaults-p (default-head-content s))
-      (if title (title title :stream s))
+      (if title (title title s))
       (if (stringp some-string)
 	  (write-string some-string s))))
    stream))
@@ -36,8 +36,8 @@ If DEFAULTS-P is nil, don't include default XHTML content (see DEFAULT-HEAD-CONT
 	 (t 'ul))
    (list (with-output-to-string (s)
 	   (dolist (i items)
-	     (li i :stream s)))
-	 :stream stream)))
+	     (li i s)))
+	 stream)))
 
 (defun html-<xhc (&key attributes stream)
   "Return start tag corresponding to <html ...>. ATTRIBUTES is a list of lists of the form (<attribute-name> <value>)"
@@ -110,16 +110,25 @@ If DEFAULTS-P is nil, don't include default XHTML content (see DEFAULT-HEAD-CONT
 	    :namespace *xhtml-namespace*
 	    :stream stream))
 
+(defun xhc+ (tag f stream &key attributes class id style)
+  (declare (list attributes) 
+	   (string tag))
+  (dxg::elt+ tag f stream
+	     :attributes (append (list (list "class" class)
+				 (list "style" style)
+				 (list "id" id))
+			   attributes)
+	     :namespace *xhtml-namespace*))
+
 (defun xhc* (tag some-string &key attributes class id style stream)
   (declare (list attributes) 
 	   (string tag))
-  (dxg:xmlc* tag some-string
+  (dxg:xmlc* tag some-string stream
 	     :attr (append (list (list "class" class)
 				 (list "style" style)
 				 (list "id" id))
 			   attributes)
-	     :namespace *xhtml-namespace*
-	     :stream stream))
+	     :namespace *xhtml-namespace*))
 
 (defun xhc-protected (label &key (protected-string "") attributes)
   "Return <label> XHTML component of an xforms/xhtml document. ATTRIBUTES is a list of lists. Each sublist has two members, the first is a string corresponding to the attribute and the second is a string corresponding to the attribute value. PROTECTED-STRING is a string which is included verbatim as a child of the <label>...</label> node."
@@ -139,7 +148,7 @@ If DEFAULTS-P is nil, don't include default XHTML content (see DEFAULT-HEAD-CONT
   (with-output-to-string (s)
     (dxg:xml-spec :stylesheets stylesheets :stream s)
     (html
-     (with-output-to-string (s2)
-       (head nil :title title :stream s2) 
-       (body body :stream s2))
+     #'(lambda (s2)
+	 (head nil :title title :stream s2) 
+	 (body body s2))
      :stream s)))
