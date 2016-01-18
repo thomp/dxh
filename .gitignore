@@ -1,13 +1,8 @@
-/.gitignore~
+*~
 /DESIGN-PHILOSOPHY
-/DESIGN-PHILOSOPHY~
 /FN-NAMING-CONVENTIONS.txt
-/dxh.asd~
 /packages.fasl
-/packages.lisp~
 /utils.fasl
-/utils.lisp~
 /vars.fasl
-/vars.lisp~
+/xhtml--staging.lisp
 /xhtml.fasl
-/xhtml.lisp~

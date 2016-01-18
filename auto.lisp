@@ -3,7 +3,7 @@
 ;; elements which should have definitions automatically generated
 (defparameter *auto-elements* 
   '(b blockquote body br 
-    caption code 
+    caption code col
     del div dd dl dt 
     em 
     h1 h2 h3 hr 
@@ -22,30 +22,27 @@
   (let ((tag-string (string-downcase (string tag))))
     (setf (fdefinition tag)
 	  #'(lambda (output-generator stream &key attributes class id style)
-	      (format t "DEFELT.22 OUTPUT-GENERATOR(~S): ~S~%" tag output-generator)
 	      (cond ((not output-generator)
 		     (dxg::empty-tag* 
-		      tag stream 
+		      tag-string stream
 		      :attributes (append (list 
 					   (list "class" class)
 					   (list "style" style)
 					   (list "id" id))
 					  attributes)))
 		    ((stringp output-generator)
-		     (format t "DEFELT.33")
-		     (xhc* tag-string output-generator :attributes attributes :class class :id :id :style style :stream stream))
+		     (xhc* tag-string output-generator :attributes attributes :class class :id id :style style :stream stream))
 		    (t
 		     (xhc+ tag-string output-generator stream
 		     :attributes attributes 
 		     :class class
 		     :id id 
 		     :style style)))))
-
     ;; FOO-S
     (let ((tag-s-symbol (read-from-string (concatenate 'string tag-string "-s"))))
      (setf (fdefinition tag-s-symbol)
 	   #'(lambda (some-string &key attributes class id style)
-	       (xhc tag-string some-string 
+	       (xhc tag-string some-string
 		    :attributes attributes 
 		    :class class
 		    :id id

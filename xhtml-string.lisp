@@ -91,10 +91,11 @@
 			 (list "title" title)
 			 (list "type" type))))
 
-(defun meta-s (some-string &key (content "text/html;charset=utf-8") (http-equiv "Content-Type") name scheme)
+(defun meta-s (some-string &key (charset "utf-8") content http-equiv name scheme)
   (xhc "meta"
        some-string
        :attributes (list
+		    (list "charset" charset)
 		    (list "content" content)
 		    (list "http-equiv" http-equiv)
 		    (list "name" name)

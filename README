@@ -1,1 +1,15 @@
 HTML generation.
+
+
+Provide stream-friendly HTML generation.
+
+
+
+FOO
+	- write to stream
+
+FOO-S
+	- return a string
+
+FOO/
+	- closed tag

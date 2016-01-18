@@ -1,5 +1,7 @@
 (in-package :dxh)
 
+;; FIXME: add INPUT and LABEL
+
 (defun a (output-generator stream &key attributes class id href rwname rwval style target title)
   (let ((newhref
 	 (if (and rwname rwval)
@@ -28,6 +30,35 @@
 				(list "style" style)
 				(list "title" title))))
 
+(defun input (stream &key accesskey checked class id onblur onfocus readonly style type name tabindex title value)  
+  (xhc* "input"
+	""
+	:attributes (list 
+		     (list "accesskey" accesskey)
+		     (list "checked" checked)
+		     (list "readonly" readonly)
+		     (list "type" type)
+		     (list "name" name)
+		     (list "tabindex" tabindex)
+		     (list "title" title)
+		     (list "value" value)
+		     (list "onfocus" onfocus)
+		     (list "onblur" onblur))
+	:class class
+	:id id
+	:style style
+	:stream stream))
+
+(defun label (output-generator stream &key class for style)
+  (cond ((stringp output-generator) 
+	 (xhc* "label"
+	       output-generator
+	       :attributes (list (list "for" for)) 
+	       :class class 
+	       :stream stream
+	       :style style))
+	(t (error "Write me"))))
+
 (defun meta/ (stream &key (content "text/html;charset=utf-8") (http-equiv "Content-Type") name scheme)
   (dxg::empty-tag* "meta" stream
 		   :attributes (list
@@ -35,6 +66,20 @@
 				(list "http-equiv" http-equiv)
 				(list "name" name)
 				(list "scheme" scheme))))
+
+(defun option (output-generator stream &key class label selected style title value)
+  (cond ((stringp output-generator) 
+	 (xhc* "option"
+	       output-generator
+	       :attributes (list 
+			    (list "label" label)
+			    (list "value" value)
+			    (list "selected" selected)
+			    (list "title" title)) 
+	       :class class 
+	       :stream stream
+	       :style style))
+	(t (error "Write me"))))
 
 (defun style (output-generator stream &key protect-with-cdata-p (type "text/css"))
   "TYPE is a string representing the type attribute."

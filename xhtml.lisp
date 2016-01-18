@@ -47,6 +47,7 @@ If DEFAULTS-P is nil, don't include default XHTML content (see DEFAULT-HEAD-CONT
   (dxg:end-tag "html" :namespace *xhtml-namespace* :stream stream))
 
 (defun html (some-string &key attributes stream)
+  "If STREAM is NIL, return a string. If STREAM is true, send output to the corresponding stream."
   (write-string
    (concatenate 'string
     (html-<xhc
