@@ -29,4 +29,7 @@ An example:
 
 An example:
 
+```lisp
+(dxh:pre-s "glurp")
+"<pre>glurp</pre>"
 ```
